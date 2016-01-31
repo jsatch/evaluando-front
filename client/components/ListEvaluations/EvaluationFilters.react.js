@@ -16,8 +16,8 @@ var EvaluationFilters = React.createClass({
             {
               this.props.termsList.map(function(term){
                 return (
-                  <option value="2015-2">
-                    Todos
+                  <option key={term.id} value={term.id}>
+                    {term.name}
                   </option>
                 )
               })

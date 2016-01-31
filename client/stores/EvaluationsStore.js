@@ -31,25 +31,23 @@ var EvaluationsStore = assign({},
 );
 
 EvaluationsDispatcher.register(function(action){
-  console.log('ACTION:', action);
   switch(action.action.actionType){
     case EvaluationsConstants.LIST_EVALUATIONS:
       console.log("Se llamo al action de LIST_EVALUATIONS:" , action);
-      request.get('http://localhost:5000/evaluation', function (error, response, body) {
+      request.get('http://127.0.0.1:5000/evaluation', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          console.log(body) // Show the HTML for the Google homepage.
-          _evaluations = body;
+          console.log(JSON.parse(body))
+          _evaluations = JSON.parse(body).evaluations;
           EvaluationsStore.emitChange();
         }
       });
 
     break;
     case EvaluationsConstants.LIST_TERMS:
-      console.log("Se llamo al action de LIST_TERMS");
-      request.get('http://localhost:5000/term', function (error, response, body) {
+      request.get('http://127.0.0.1:5000/term', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          console.log(body) // Show the HTML for the Google homepage.
-          _terms = body;
+          console.log(JSON.parse(body))
+          _terms = JSON.parse(body).terms;
           EvaluationsStore.emitChange();
         }
       });
