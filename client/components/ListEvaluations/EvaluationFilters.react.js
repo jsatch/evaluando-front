@@ -2,14 +2,20 @@ var React = require('react');
 
 var EvaluationFilters = React.createClass({
   propTypes: {
-    termsList: React.PropTypes.array
+    termsList: React.PropTypes.array,
+    handleFilterChange : React.PropTypes.func
+  },
+  _handleTermChange : function(event){
+    this.props.handleFilterChange({
+      termId : event.target.value
+    });
   },
   render : function(){
     return (
       <form className="form-inline">
         <div className="form-group">
           <label htmlFor="termFilter">Ciclo:</label>
-          <select className="form-control">
+          <select className="form-control" onChange={this._handleTermChange}>
             <option value="0">
               Todos
             </option>

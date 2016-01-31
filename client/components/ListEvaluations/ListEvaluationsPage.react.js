@@ -15,6 +15,7 @@ var ListEvaluationsPage = React.createClass({
   },
   componentDidMount: function() {
     EvaluationsStore.addChangeListener(this._onChange);
+    $.blockUI({ message: '<h2> Espere unos segundos...</h2>' });
     EvaluationsActions.listEvaluations();
     EvaluationsActions.listTerms();
   },
@@ -22,11 +23,15 @@ var ListEvaluationsPage = React.createClass({
     EvaluationsStore.removeChangeListener(this._onChange);
   },
   _onChange : function(){
+    $.unblockUI();
     this.setState({
       routesList : [{url:'#', name:'Evaluaciones'}],
       termsList : EvaluationsStore.getTerms(),
       evaluationsList : EvaluationsStore.getEvaluations()
     });
+  },
+  handleFilterChange : function(filterValue){
+    EvaluationsActions.filterEvaluations(filterValue);
   },
   render: function() {
     return (
@@ -38,6 +43,7 @@ var ListEvaluationsPage = React.createClass({
           </div>
           <div className="col-md-9">
             <Evaluations
+              handleFilterChange={this.handleFilterChange}
               routesList={this.state.routesList}
               termsList={this.state.termsList}
               evaluationsList={this.state.evaluationsList}/>

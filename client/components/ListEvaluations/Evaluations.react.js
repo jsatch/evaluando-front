@@ -7,14 +7,17 @@ var Evaluations = React.createClass({
   propTypes: {
     routesList: React.PropTypes.array,
     termsList: React.PropTypes.array,
-    evaluationsList: React.PropTypes.array
+    evaluationsList: React.PropTypes.array,
+    handleFilterChange : React.PropTypes.func
   },
   render : function(){
 
     return (
       <div>
         <Navigation routesList={this.props.routesList}/>
-        <EvaluationFilters termsList={this.props.termsList}/>
+        <EvaluationFilters
+          handleFilterChange={this.props.handleFilterChange} 
+          termsList={this.props.termsList}/>
         <EvaluationTable evaluationsList={this.props.evaluationsList}/>
       </div>
     )

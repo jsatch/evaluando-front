@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "author": "Hernan Quintana",
   "dependencies": {
+    "block-ui": "^2.70.1",
     "express": "^4.13.4",
     "flux": "^2.1.1",
     "gulp-express": "^0.3.5",
     "gulp-live-server": "0.0.29",
+    "jquery": "^2.2.0",
     "key-mirror": "^1.0.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.7",
