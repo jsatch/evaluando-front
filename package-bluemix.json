@@ -1,0 +1,8 @@
+{
+  "name": "evaluando",
+  "version": "1.0.0",
+  "author": "Hernan Quintana",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
