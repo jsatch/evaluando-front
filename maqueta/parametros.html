@@ -1,0 +1,96 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            Evaluando
+          </a>
+        </div>
+        <div style="padding-right:30px">
+          <button type="button" class="btn btn-default navbar-btn navbar-right">Salir</button>
+        </div>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Menu -->
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" ><a href="list-evaluations.html">Evaluaciones</a></li>
+          <li role="presentation" class="active"><a href="#">Parámetros</a></li>
+        </ul>
+        <!-- Fin Menu -->
+      </div>
+      <div class="col-md-9">
+      <!-- Contenido -->
+
+        <!-- Breadcumbs -->
+        <ol class="breadcrumb">
+          <li class="active"><a href="#">Parámetros</a></li>
+        </ol>
+        <!-- Fin Breadcumbs -->
+
+        <!-- Parámetros -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Ciclos
+          </div>
+          <div class="panel-body">
+
+            <form class="form-inline">
+              <input class="btn btn-primary" type="button" value="Nuevo"/>
+              <div class="form-group">
+                <label for="nombre">Nombre: </label>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control " id="nombre">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" aria-label="Guardar">
+                      <span class="glyphicon glyphicon-floppy-open"></span>
+                    </button>
+                  </span>
+
+
+                </div>
+              </div>
+            </form>
+            <div class="list-group">
+              <button type="button" class="list-group-item active">
+                2016-1
+                <span class="glyphicon glyphicon-remove pull-right" >
+                </span>
+              </button>
+              <button type="button" class="list-group-item">
+                2015-2
+                <span class="glyphicon glyphicon-remove pull-right" >
+                </span>
+              </button>
+              <button type="button" class="list-group-item">
+                2015-1
+                <span class="glyphicon glyphicon-remove pull-right" >
+                </span>
+              </button>
+            </div>
+          </div>
+        <!-- Fin Parámetros -->
+
+
+
+      <!-- Fin Contenido -->
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+    crossorigin="anonymous"></script>
+</body>
+</html>
