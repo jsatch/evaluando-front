@@ -31,7 +31,8 @@ var EvaluationFilters = React.createClass({
 
           </select>
         </div>
-        <input className="btn btn-primary" type="button" value="Nuevo"/>
+        <input className="btn btn-primary" type="button" value="Nuevo"
+          data-toggle="modal" data-target="#modalAddEvaluation"/>
       </form>
     )
   }

@@ -1,4 +1,5 @@
 var React = require('react');
+var objectAssign = require('object-assign');
 
 var EvaluationAddModal = React.createClass({
   propTypes: {
@@ -10,12 +11,19 @@ var EvaluationAddModal = React.createClass({
       term : ""
     }
   },
-  _handleOnNameChange : function(){
-    
+  _handleOnNameChange : function(event){
+    this.setState({
+      name : event.target.value
+    });
+  },
+  _handleOnTermChange : function(event){
+    this.setState({
+      term : event.target.value
+    });
   },
   render : function(){
     return (
-      <div className="modal fade" tabindex="-1" role="dialog"
+      <div className="modal fade" tabIndex="-1" role="dialog"
         id="modalAddEvaluation">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -34,7 +42,8 @@ var EvaluationAddModal = React.createClass({
                   </label>
                   <div className="col-sm-8">
                     <input type="text" className="form-control" id="name"
-                      value={this.state.name} >
+                      value={this.state.name}
+                      onChange={this._handleOnNameChange}/>
                   </div>
                 </div>
                 <div className="form-group">
@@ -43,7 +52,8 @@ var EvaluationAddModal = React.createClass({
                   </label>
                   <div className="col-sm-8">
                     <select id="term" className="form-control"
-                      value={this.state.term}>
+                      value={this.state.term}
+                      onChange={this._handleOnTermChange}>
                       {
                         this.props.termsList.map(function(term){
                           return (
@@ -62,7 +72,7 @@ var EvaluationAddModal = React.createClass({
               <button type="button" className="btn btn-default" data-dismiss="modal">Cerrar</button>
               <button type="button" className="btn btn-primary">Guardar</button>
             </div>
-          </div><!-- /.modal-content -->
+          </div>
         </div>
       </div>
     )

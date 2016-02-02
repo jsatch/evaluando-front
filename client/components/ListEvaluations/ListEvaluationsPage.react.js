@@ -2,6 +2,7 @@ var React = require('react');
 var Header = require('../../components/General/Header.react');
 var Menu = require('../../components/General/Menu.react');
 var Evaluations = require('../../components/ListEvaluations/Evaluations.react');
+var EvaluationAddModal = require('../../components/ListEvaluations/EvaluationAddModal.react');
 var EvaluationsStore = require('../../stores/EvaluationsStore');
 var EvaluationsActions = require('../../actions/EvaluationsActions');
 
@@ -49,6 +50,7 @@ var ListEvaluationsPage = React.createClass({
               evaluationsList={this.state.evaluationsList}/>
           </div>
         </div>
+        <EvaluationAddModal termsList={this.state.termsList}/>
       </div>
     )
   }
