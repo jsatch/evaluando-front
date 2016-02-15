@@ -34,6 +34,12 @@ var ListEvaluationsPage = React.createClass({
   handleFilterChange : function(filterValue){
     EvaluationsActions.filterEvaluations(filterValue);
   },
+  handleAddEvaluation : function(name, term){
+    EvaluationsActions.addEvaluation({
+      nombre : name,
+      termId : term
+    });
+  },
   render: function() {
     return (
       <div className="container">
@@ -50,7 +56,9 @@ var ListEvaluationsPage = React.createClass({
               evaluationsList={this.state.evaluationsList}/>
           </div>
         </div>
-        <EvaluationAddModal termsList={this.state.termsList}/>
+        <EvaluationAddModal
+          termsList={this.state.termsList}
+          handleAddEvaluation={this.handleAddEvaluation}/>
       </div>
     )
   }

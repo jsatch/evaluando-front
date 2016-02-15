@@ -55,9 +55,20 @@ EvaluationsDispatcher.register(function(action){
       );
     break;
     case EvaluationsConstants.LIST_TERMS:
+      var evaluation = action.action.evaluation;
       request.get(config.URL_BACKEND + '/term', function (error, response, body) {
+
         if (!error && response.statusCode == 200) {
           _terms = JSON.parse(body).terms;
+          EvaluationsStore.emitChange();
+        }
+      });
+    break;
+    case EvaluationsConstants.ADD_EVALUATION:
+      request.post(config.URL_BACKEND + '/term',
+        body: evaluation, function (error, response, body) {
+          
+        if (!error && response.statusCode == 200) {
           EvaluationsStore.emitChange();
         }
       });

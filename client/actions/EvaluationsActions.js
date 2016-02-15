@@ -17,6 +17,12 @@ var EvaluationsActions = {
     EvaluationsDispatcher.handleServerAction({
       actionType :EvaluationsConstants.LIST_TERMS
     });
+  },
+  addEvaluation : function(evaluation){
+    EvaluationsDispatcher.handleViewAction({
+      actionType : EvaluationsConstants.ADD_EVALUATION,
+      evaluation : evaluation
+    });
   }
 };
 

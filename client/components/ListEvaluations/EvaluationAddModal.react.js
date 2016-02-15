@@ -3,7 +3,8 @@ var objectAssign = require('object-assign');
 
 var EvaluationAddModal = React.createClass({
   propTypes: {
-    termsList: React.PropTypes.array
+    termsList: React.PropTypes.array,
+    handleAddEvaluation : React.PropTypes.func
   },
   getInitialState : function(){
     return {
@@ -20,6 +21,9 @@ var EvaluationAddModal = React.createClass({
     this.setState({
       term : event.target.value
     });
+  },
+  _handleOnAddEvaluation : function(){
+    this.props.handleAddEvaluation(this.state.name, this.state.term);
   },
   render : function(){
     return (
@@ -70,7 +74,12 @@ var EvaluationAddModal = React.createClass({
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-default" data-dismiss="modal">Cerrar</button>
-              <button type="button" className="btn btn-primary">Guardar</button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this._handleOnAddEvaluation}>
+                Guardar
+              </button>
             </div>
           </div>
         </div>
