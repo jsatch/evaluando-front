@@ -13,6 +13,10 @@ var _evaluations = [];
 var EvaluationsStore = assign({},
   EventEmitter.prototype,
   {
+    estados : {
+      CHANGE_EVENT : 'change',
+      AFTER_SAVE_EVALUATION_EVENT : 'after_save_evaluation_event'
+    },
     getTerms : function(){
       return _terms;
     },
@@ -20,13 +24,16 @@ var EvaluationsStore = assign({},
       return _evaluations;
     },
     emitChange : function() {
-      this.emit(CHANGE_EVENT);
+      this.emit(this.estados.CHANGE_EVENT);
     },
-    addChangeListener : function(callback) {
-      this.on(CHANGE_EVENT, callback);
+    emitAfterSaveEvaluationEvent : function(){
+      this.emit(this.estados.AFTER_SAVE_EVALUATION_EVENT);
     },
-    removeChangeListener: function(callback) {
-      this.removeListener(CHANGE_EVENT, callback);
+    addChangeListener : function(id, callback) {
+      this.on(id, callback);
+    },
+    removeChangeListener: function(id, callback) {
+      this.removeListener(id, callback);
     }
   }
 );
@@ -55,9 +62,7 @@ EvaluationsDispatcher.register(function(action){
       );
     break;
     case EvaluationsConstants.LIST_TERMS:
-      var evaluation = action.action.evaluation;
       request.get(config.URL_BACKEND + '/term', function (error, response, body) {
-
         if (!error && response.statusCode == 200) {
           _terms = JSON.parse(body).terms;
           EvaluationsStore.emitChange();
@@ -65,11 +70,16 @@ EvaluationsDispatcher.register(function(action){
       });
     break;
     case EvaluationsConstants.ADD_EVALUATION:
-      request.post(config.URL_BACKEND + '/term',
-        body: evaluation, function (error, response, body) {
-          
+      var evaluation = action.action.evaluation;
+      console.log(evaluation);
+      request({
+        method : 'POST',
+        url: config.URL_BACKEND + '/evaluation',
+        json : true,
+        body: evaluation
+      }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          EvaluationsStore.emitChange();
+          EvaluationsStore.emitAfterSaveEvaluationEvent();
         }
       });
     break;

@@ -1,5 +1,21 @@
 var React = require('react');
+
+var Error = require('../../components/General/Error.react');
+
 var objectAssign = require('object-assign');
+var schema = require('async-validator');
+var descriptor = {
+  name: {
+    type: "string",
+    required: true,
+    message: "Debe ingresar nombre de evaluación"
+  },
+  term : {
+    type : "number",
+    min : 1,
+    message: "Debe seleccionar un ciclo"
+  }
+}
 
 var EvaluationAddModal = React.createClass({
   propTypes: {
@@ -8,8 +24,10 @@ var EvaluationAddModal = React.createClass({
   },
   getInitialState : function(){
     return {
+      error : false,
+      errors : [],
       name : "",
-      term : ""
+      term : 0
     }
   },
   _handleOnNameChange : function(event){
@@ -23,9 +41,46 @@ var EvaluationAddModal = React.createClass({
     });
   },
   _handleOnAddEvaluation : function(){
-    this.props.handleAddEvaluation(this.state.name, this.state.term);
+    var validator = new schema(descriptor);
+    validator.validate({
+      name: this.state.name,
+      term : parseInt(this.state.term)
+    }, function(errors, fields){
+      if (errors){
+        // Validation error
+        this.setState(
+          {
+            error : true,
+            errors : errors
+          }
+        );
+      }else{
+        // Validation pass
+        this.setState({
+          error : false,
+          errors : [],
+          name : "",
+          term : 0
+        });
+        this.props.handleAddEvaluation(this.state.name, parseInt(this.state.term));
+      }
+    }.bind(this));
+  },
+  _onDismissAlert : function(){
+    this.setState(
+      {
+        error : false,
+        errors : []
+      }
+    );
   },
   render : function(){
+    var error;
+    if (this.state.error){
+      error = <Error
+        errors={this.state.errors}
+        onDismiss={this._onDismissAlert}/>
+    }
     return (
       <div className="modal fade" tabIndex="-1" role="dialog"
         id="modalAddEvaluation">
@@ -39,7 +94,8 @@ var EvaluationAddModal = React.createClass({
               <h4 className="modal-title">Agregar Evaluación</h4>
             </div>
             <div className="modal-body">
-              <form className="form-horizontal">
+              {error}
+              <form className="form-horizontal" id="addEvalForm">
                 <div className="form-group">
                   <label htmlFor="name" className="col-sm-4 control-label">
                     Nombre Evaluación :
@@ -58,6 +114,7 @@ var EvaluationAddModal = React.createClass({
                     <select id="term" className="form-control"
                       value={this.state.term}
                       onChange={this._handleOnTermChange}>
+                      <option value="0">--Seleccione--</option>
                       {
                         this.props.termsList.map(function(term){
                           return (
@@ -73,7 +130,10 @@ var EvaluationAddModal = React.createClass({
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">Cerrar</button>
+              <button type="button" className="btn btn-default"
+                data-dismiss="modal">
+                Cerrar
+              </button>
               <button
                 type="button"
                 className="btn btn-primary"

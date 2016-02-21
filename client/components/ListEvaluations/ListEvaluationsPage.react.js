@@ -15,7 +15,12 @@ var ListEvaluationsPage = React.createClass({
     }
   },
   componentDidMount: function() {
-    EvaluationsStore.addChangeListener(this._onChange);
+    EvaluationsStore.addChangeListener(
+      EvaluationsStore.estados.CHANGE_EVENT, this._onChange);
+    EvaluationsStore.addChangeListener(
+      EvaluationsStore.estados.AFTER_SAVE_EVALUATION_EVENT,
+      this._onChangeAfterEvaluationSave
+    );
     $.blockUI({ message: '<h2> Espere unos segundos...</h2>' });
     EvaluationsActions.listEvaluations();
     EvaluationsActions.listTerms();
@@ -30,6 +35,12 @@ var ListEvaluationsPage = React.createClass({
       termsList : EvaluationsStore.getTerms(),
       evaluationsList : EvaluationsStore.getEvaluations()
     });
+  },
+  _onChangeAfterEvaluationSave : function(){
+    console.log("_onChangeAfterEvaluationSave");
+    EvaluationsActions.listEvaluations();
+    EvaluationsActions.listTerms();
+    $('#modalAddEvaluation').modal('hide')
   },
   handleFilterChange : function(filterValue){
     EvaluationsActions.filterEvaluations(filterValue);
