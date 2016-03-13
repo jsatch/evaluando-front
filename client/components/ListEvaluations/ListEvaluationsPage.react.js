@@ -1,4 +1,6 @@
 var React = require('react');
+var browserHistory = require('react-router').browserHistory;
+
 var Header = require('../../components/General/Header.react');
 var Menu = require('../../components/General/Menu.react');
 var Evaluations = require('../../components/ListEvaluations/Evaluations.react');
@@ -26,7 +28,10 @@ var ListEvaluationsPage = React.createClass({
     EvaluationsActions.listTerms();
   },
   componentWillUnmount: function() {
-    EvaluationsStore.removeChangeListener(this._onChange);
+    EvaluationsStore.removeChangeListener(EvaluationsStore.estados.CHANGE_EVENT,
+      this._onChange);
+    EvaluationsStore.removeChangeListener(EvaluationsStore.estados.AFTER_SAVE_EVALUATION_EVENT,
+      this._onChangeAfterEvaluationSave);
   },
   _onChange : function(){
     $.unblockUI();
@@ -51,6 +56,9 @@ var ListEvaluationsPage = React.createClass({
       termId : term
     });
   },
+  handleEvaluationEdit : function(evaluationId){
+    browserHistory.push('/edit-evaluation/' + evaluationId);
+  },
   render: function() {
     return (
       <div className="container">
@@ -64,7 +72,8 @@ var ListEvaluationsPage = React.createClass({
               handleFilterChange={this.handleFilterChange}
               routesList={this.state.routesList}
               termsList={this.state.termsList}
-              evaluationsList={this.state.evaluationsList}/>
+              evaluationsList={this.state.evaluationsList}
+              handleEvaluationEdit={this.handleEvaluationEdit}/>
           </div>
         </div>
         <EvaluationAddModal

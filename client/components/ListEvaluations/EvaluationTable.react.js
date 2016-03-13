@@ -2,7 +2,11 @@ var React = require('react');
 
 var EvaluationTable = React.createClass({
   propTypes: {
-    evaluationsList: React.PropTypes.array
+    evaluationsList: React.PropTypes.array,
+    handleEvaluationEdit : React.PropTypes.func
+  },
+  _handleEvaluationEdit : function(evaluationId){
+    this.props.handleEvaluationEdit(evaluationId);
   },
   render : function(){
     var noItemsMessage = '';
@@ -25,8 +29,10 @@ var EvaluationTable = React.createClass({
                     </div>
                     <div className="col-md-9">
                       <div className="btn-group pull-right" role="group" aria-label="...">
-                        <button type="button" className="btn btn-default">
-                          <span className="glyphicon glyphicon-pencil" >
+                        <button
+                          onClick={this._handleEvaluationEdit.bind(this, evaluation.id)}
+                          type="button" className="btn btn-default" >
+                          <span className="glyphicon glyphicon-pencil">
                           </span>
                         </button>
                         <button type="button" className="btn btn-default">
@@ -43,7 +49,7 @@ var EvaluationTable = React.createClass({
                 </div>
               </div>
             )
-          })
+          }, this)
         }
       </div>
     )
