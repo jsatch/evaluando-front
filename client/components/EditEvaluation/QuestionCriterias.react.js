@@ -1,11 +1,38 @@
 var React = require('react');
+
+var QuestionCriteriaEdit = require('./QuestionCriteriaEdit.react');
+
 var PropTypes = React.PropTypes;
 
 var QuestionCriterias = React.createClass({
   propTypes: {
-    criterias : PropTypes.array
+    criterias : PropTypes.array,
+    handleSaveCriteria : PropTypes.func,
+    handleUpdateCriteria : PropTypes.func,
+    handleDeleteCriteria : PropTypes.func
   },
-
+  getInitialState: function() {
+    return {
+      criteriaDetail : '',
+      criteriaPoints : ''
+    };
+  },
+  _handleCriteriaDetailChange : function(evt){
+    this.setState({
+      criteriaDetail : evt.target.value
+    });
+  },
+  _handleCriteriaPointsChange : function(evt){
+    this.setState({
+      criteriaPoints : evt.target.value
+    });
+  },
+  _handleSaveCriteria : function(){
+    this.props.handleSaveCriteria({
+      detail : this.state.criteriaDetail,
+      points : this.state.criteriaPoints
+    });
+  },
   render: function() {
     return (
       <div className="panel panel-default">
@@ -16,34 +43,30 @@ var QuestionCriterias = React.createClass({
           <ul className="list-group">
             {
               this.props.criterias.map(function(criteria){
-                return <li className="list-group-item" key={criteria.id}>
-                  <div className="row">
-                    <div className="col-md-7">
-                      {criteria.detail}
-                    </div>
-                    <div className="col-md-3">
-                      {criteria.points}
-                    </div>
-                    <div className="col-md-2">
-                      <div className="pull-right">
-                        <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                      </div>
-                    </div>
-                  </div>
-                </li>;
-              })
+                return <QuestionCriteriaEdit
+                  key={criteria.id}
+                  defaultCriteria={criteria}
+                  handleUpdateCriteria={this.props.handleUpdateCriteria}
+                  handleDeleteCriteria={this.props.handleDeleteCriteria}/>;
+              }, this)
             }
             <li className="list-group-item">
               <div className="row">
                 <div className="col-md-7">
-                  <textarea className="form-control" id="criterio" placeholder="Criterio"></textarea>
+                  <textarea className="form-control"
+                    id="criterio"
+                    placeholder="Criterio"
+                    onChange={this._handleCriteriaDetailChange}>
+                  </textarea>
                 </div>
                 <div className="col-md-3">
-                  <input type="number" className="form-control" id="puntajeCriterio"/>
+                  <input type="number" className="form-control"
+                    id="puntajeCriterio"
+                    onChange={this._handleCriteriaPointsChange}/>
                 </div>
                 <div className="col-md-2">
-                  <button className="btn btn-primary" type="button">+</button>
+                  <button className="btn btn-primary"
+                    type="button" onClick={this._handleSaveCriteria}>+</button>
                 </div>
               </div>
             </li>

@@ -16,7 +16,10 @@ var EditEvaluation = React.createClass({
     handleSelectQuestion : PropTypes.func,
     handleSaveQuestionDetail : PropTypes.func,
     handleSaveEvaluationName : PropTypes.func,
-    handleDeleteQuestion : PropTypes.func
+    handleDeleteQuestion : PropTypes.func,
+    handleSaveCriteria : PropTypes.func,
+    handleUpdateCriteria : PropTypes.func,
+    handleDeleteCriteria : PropTypes.func
   },
 
   render: function() {
@@ -36,7 +39,11 @@ var EditEvaluation = React.createClass({
           <div className="col-md-8">
             <QuestionInfo
               selectedQuestion={this.props.selectedQuestion}
-              handleSaveQuestionDetail={this.props.handleSaveQuestionDetail} />
+              handleSaveQuestionDetail={this.props.handleSaveQuestionDetail}
+              handleSaveCriteria={this.props.handleSaveCriteria}
+              handleUpdateCriteria={this.props.handleUpdateCriteria}
+              handleDeleteCriteria={this.props.handleDeleteCriteria}
+               />
           </div>
         </div>
       </div>

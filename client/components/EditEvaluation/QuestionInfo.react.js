@@ -8,7 +8,10 @@ var PropTypes = React.PropTypes;
 var QuestionInfo = React.createClass({
   propTypes: {
     selectedQuestion: PropTypes.object,
-    handleSaveQuestionDetail : PropTypes.func
+    handleSaveQuestionDetail : PropTypes.func,
+    handleSaveCriteria : PropTypes.func,
+    handleUpdateCriteria : PropTypes.func,
+    handleDeleteCriteria : PropTypes.func
   },
   render: function() {
     var mostrar = null;
@@ -20,7 +23,11 @@ var QuestionInfo = React.createClass({
           selectedQuestion={this.props.selectedQuestion}
           handleSaveQuestionDetail={this.props.handleSaveQuestionDetail}
           />
-        <QuestionCriterias criterias={this.props.selectedQuestion.criterias}/>
+        <QuestionCriterias
+          criterias={this.props.selectedQuestion.criterias}
+          handleSaveCriteria={this.props.handleSaveCriteria}
+          handleUpdateCriteria={this.props.handleUpdateCriteria}
+          handleDeleteCriteria={this.props.handleDeleteCriteria}/>
       </div>;
     }
     return (

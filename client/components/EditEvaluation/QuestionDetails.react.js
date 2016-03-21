@@ -23,7 +23,7 @@ var QuestionsDetails = React.createClass({
       questionPoints : evt.target.value
     });
   },
-  handleOnSaveQuestion : function(){
+  _handleOnSaveQuestion : function(){
     this.props.handleSaveQuestionDetail({
       'id' : this.state.questionId,
       'body' : this.state.questionBody,
@@ -39,7 +39,7 @@ var QuestionsDetails = React.createClass({
             <div className="pull-right">
               <span className="glyphicon glyphicon-floppy-disk"
                 aria-hidden="true"
-                onClick={this.handleOnSaveQuestion}></span>
+                onClick={this._handleOnSaveQuestion}></span>
             </div>
           </h3>
 
@@ -50,7 +50,7 @@ var QuestionsDetails = React.createClass({
               <label htmlFor="texto" className="col-md-2 control-label">Texto</label>
               <div className="col-md-10">
                 <textarea className="form-control" id="texto"
-                  value={this.props.selectedQuestion.body}
+                  value={this.state.questionBody}
                   onChange={this._handleOnQuestionBodyChange}>
                 </textarea>
               </div>
@@ -61,6 +61,7 @@ var QuestionsDetails = React.createClass({
                 <input type="number" className="form-control"
                   id="puntaje"
                   placeholder="Puntaje"
+                  value={this.state.questionPoints}
                   onChange={this._handleOnQuestionPointsChange} />
               </div>
             </div>

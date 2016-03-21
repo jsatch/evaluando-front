@@ -34,8 +34,8 @@ var EditEvaluationPage = React.createClass({
       selectedQuestion : null
     };
   },
-  _handleCreateQuestion : function(){
-    console.log('EditEvaluationPage', 'TODO: _handleCreateQuestion');
+  _handleCreateQuestion : function(questionBody){
+    console.log('EditEvaluationPage _handleCreateQuestion', questionBody);
   },
   _handleSelectQuestion : function(questionId){
     console.log('EditEvaluationPage', 'TODO: _handleSelectQuestion id:'+questionId);
@@ -47,11 +47,20 @@ var EditEvaluationPage = React.createClass({
   _handleSaveQuestionDetail : function(question){
     console.log('EditEvaluationPage _handleSaveQuestionDetail', 'TODO: ' + question.body);
   },
+  _handleDeleteQuestion : function(questionId){
+    console.log('EditEvaluationPage', 'TODO: _handleDeleteQuestion id:' + questionId);
+  },
   _handleSaveEvaluationName : function(name){
     console.log('EditEvaluationPage', 'TODO: _handleSaveEvaluationName name:' + name);
   },
-  _handleDeleteQuestion : function(questionId){
-    console.log('EditEvaluationPage', 'TODO: _handleDeleteQuestion id:' + questionId);
+  _handleSaveCriteria : function(criteria){
+    console.log('EditEvaluationPage _handleSaveCriteria', criteria);
+  },
+  _handleUpdateCriteria : function(criteria){
+    console.log('EditEvaluationPage _handleUpdateCriteria', criteria);
+  },
+  _handleDeleteCriteria : function(criteriaId){
+    console.log('EditEvaluationPage _handleDeleteCriteria', criteriaId);
   },
   render: function() {
     return (
@@ -71,6 +80,9 @@ var EditEvaluationPage = React.createClass({
               handleSaveQuestionDetail={this._handleSaveQuestionDetail}
               handleSaveEvaluationName={this._handleSaveEvaluationName}
               handleDeleteQuestion={this._handleDeleteQuestion}
+              handleSaveCriteria={this._handleSaveCriteria}
+              handleUpdateCriteria={this._handleUpdateCriteria}
+              handleDeleteCriteria={this._handleDeleteCriteria}
               />
           </div>
         </div>
