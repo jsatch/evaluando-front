@@ -7,7 +7,8 @@ var PropTypes = React.PropTypes;
 
 var QuestionInfo = React.createClass({
   propTypes: {
-    selectedQuestion: PropTypes.object
+    selectedQuestion: PropTypes.object,
+    handleSaveQuestionDetail : PropTypes.func
   },
   render: function() {
     var mostrar = null;
@@ -15,8 +16,11 @@ var QuestionInfo = React.createClass({
       mostrar = <div className="alert alert-info" role="alert">Seleccione una pregunta para editarla</div>;
     }else{
       mostrar = <div>
-        <QuestionDetails selectedQuestion={this.props.selectedQuestion}/>
-        <QuestionCriterias criterias={this.props.selectedQuestion.criterias}/>;
+        <QuestionDetails
+          selectedQuestion={this.props.selectedQuestion}
+          handleSaveQuestionDetail={this.props.handleSaveQuestionDetail}
+          />
+        <QuestionCriterias criterias={this.props.selectedQuestion.criterias}/>
       </div>;
     }
     return (

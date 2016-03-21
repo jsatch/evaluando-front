@@ -44,6 +44,9 @@ var EditEvaluationPage = React.createClass({
       selectedQuestion : this.state.evaluation.questions[questionId]
     });
   },
+  _handleSaveQuestionDetail : function(question){
+    console.log('EditEvaluationPage _handleSaveQuestionDetail', 'TODO: ' + question.body);
+  },
   _handleSaveEvaluationName : function(name){
     console.log('EditEvaluationPage', 'TODO: _handleSaveEvaluationName name:' + name);
   },
@@ -65,6 +68,7 @@ var EditEvaluationPage = React.createClass({
               selectedQuestion={this.state.selectedQuestion}
               handleCreateQuestion={this._handleCreateQuestion}
               handleSelectQuestion={this._handleSelectQuestion}
+              handleSaveQuestionDetail={this._handleSaveQuestionDetail}
               handleSaveEvaluationName={this._handleSaveEvaluationName}
               handleDeleteQuestion={this._handleDeleteQuestion}
               />
