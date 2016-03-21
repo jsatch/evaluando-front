@@ -1,5 +1,8 @@
 var React = require('react');
 
+var QuestionsStore = require('../../stores/QuestionsStore');
+var QuestionsActions = require('../../actions/QuestionsActions');
+
 var Header = require('../General/Header.react');
 var Menu = require('../General/Menu.react');
 var EditEvaluation = require('./EditEvaluation.react');
@@ -11,31 +14,15 @@ var EditEvaluationPage = React.createClass({
         {url:'/', name:'Evaluaciones'},
         {url:'#', name:'Editar'}
       ],
-      evaluation : {
-        id : 1,
-        nombre : 'EF Programacion Internet',
-        questions : [
-          {
-            id : 1,
-            body: 'Pregunta 1',
-            criterias : [
-              {id:1, detail: 'Criterio 1', points : 3}
-            ]
-          },
-          {
-            id : 2,
-            body: 'Pregunta 2',
-            criterias : [
-              {id:1, detail: 'Criterio 1', points : 2}
-            ]
-          },
-        ]
-      },
+      evaluation : {},
       selectedQuestion : null
     };
   },
   _handleCreateQuestion : function(questionBody){
     console.log('EditEvaluationPage _handleCreateQuestion', questionBody);
+    var pathParameters = window.location.pathname.split('/');
+    var evaluationId = parseInt(pathParameters[2]);
+    QuestionsActions.createQuestion(evaluationId, questionBody);
   },
   _handleSelectQuestion : function(questionId){
     console.log('EditEvaluationPage', 'TODO: _handleSelectQuestion id:'+questionId);
@@ -61,6 +48,39 @@ var EditEvaluationPage = React.createClass({
   },
   _handleDeleteCriteria : function(criteriaId){
     console.log('EditEvaluationPage _handleDeleteCriteria', criteriaId);
+  },
+  _onEvaluationLoaded : function(){
+    console.log('EditEvaluationPage _onEvaluationLoaded');
+    this.setState({
+      evaluation : QuestionsStore.getEvaluation()
+    });
+  },
+  _onEvaluationModify : function(){
+    var pathParameters = window.location.pathname.split('/');
+    var evaluationId = parseInt(pathParameters[2]);
+    setTimeout(function(){
+      QuestionsActions.getEvaluation(evaluationId)
+    }, 0);
+
+  },
+  componentWillMount: function() {
+    QuestionsStore.addChangeListener(
+      QuestionsStore.estados.ON_EVALUATION_LOADED,
+      this._onEvaluationLoaded
+    );
+    QuestionsStore.addChangeListener(
+      QuestionsStore.estados.ON_EVALUATION_MODIFY,
+      this._onEvaluationModify
+    );
+
+    var pathParameters = window.location.pathname.split('/');
+    QuestionsActions.getEvaluation(parseInt(pathParameters[2]));
+  },
+  componentWillUnmount: function() {
+    QuestionsStore.removeChangeListener(QuestionsStore.estados.ON_EVALUATION_LOADED,
+      this._onEvaluationLoaded);
+      QuestionsStore.removeChangeListener(QuestionsStore.estados.ON_EVALUATION_MODIFY,
+        this._onEvaluationModify);
   },
   render: function() {
     return (
